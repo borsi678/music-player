@@ -1,0 +1,87 @@
+package db;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
+
+public class BaseDeDatosMusica extends SQLiteOpenHelper {
+
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NOMBRE = "musica.db";
+    private static final String TABLE_TYPES = "CREATE TABLE types ("
+            +"id_type INTEGER PRIMARY KEY,"
+            +"description TEXT )";
+    private static final String INSERT_TYPES_0="INSERT INTO types VALUES(0, 'Person')";
+    private static final String INSERT_TYPES_1="INSERT INTO types VALUES(1, 'Group')";
+    private static final String INSERT_TYPES_2="INSERT INTO types VALUES(2, 'Unknown')";
+    private static final String TABLE_PERFORMERS = "CREATE TABLE performers(" +
+            "id_performer INTEGER PRIMARY KEY," +
+            "id_type INTEGER," +
+            "name TEXT," +
+            "FOREIGN KEY (id_type) REFERENCES types(id_type) )";
+    private static final String TABLE_PERSONS = "CREATE TABLE persons (" +
+            "id_person INTEGER PRIMARY KEY," +
+            "stage_name TEXT," +
+            "real_name TEXT," +
+            "birth_date TEXT," +
+            "death_date TEXT )";
+    private static final String TABLE_GROUPS = "CREATE TABLE groups (" +
+            "id_group INTEGER PRIMARY KEY," +
+            "name TEXT," +
+            "start_date TEXT," +
+            "end_date TEXT )";
+    private static final String TABLE_ALBUMS = "CREATE TABLE albums (" +
+            "id_album INTEGER PRIMARY KEY," +
+            "path  TEXT," +
+            "name TEXT," +
+            "year INTEGER )";
+    private static final String TABLE_ROLAS = "CREATE TABLE rolas (" +
+            "id_rola INTEGER PRIMARY KEY," +
+            "id_performer INTEGER," +
+            "id_album INTEGER," +
+            "path TEXT," +
+            "title TEXT," +
+            "track INTEGER," +
+            "year INTEGER," +
+            "genre TEXT," +
+            "FOREIGN KEY (id_performer) REFERENCES performers(id_performer)," +
+            "FOREIGN KEY (id_album) REFERENCES albums(id_album) )";
+    private static final String TABLE_IN_GROUP = "CREATE TABLE in_group (" +
+            "id_person INTEGER," +
+            "id_group INTEGER," +
+            "PRIMARY KEY (id_person, id_group)," +
+            "FOREIGN KEY (id_person) REFERENCES persons(id_person)," +
+            "FOREIGN KEY (id_group) REFERENCES groups(id_group) )";
+
+    public BaseDeDatosMusica (@Nullable Context context){
+        super(context, DATABASE_NOMBRE, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL(TABLE_TYPES);
+        sqLiteDatabase.execSQL(INSERT_TYPES_0);
+        sqLiteDatabase.execSQL(INSERT_TYPES_1);
+        sqLiteDatabase.execSQL(INSERT_TYPES_2);
+        sqLiteDatabase.execSQL(TABLE_PERFORMERS);
+        sqLiteDatabase.execSQL(TABLE_PERSONS);
+        sqLiteDatabase.execSQL(TABLE_GROUPS);
+        sqLiteDatabase.execSQL(TABLE_ALBUMS);
+        sqLiteDatabase.execSQL(TABLE_ROLAS);
+        sqLiteDatabase.execSQL(TABLE_IN_GROUP);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL("DROP TABLE types");
+        sqLiteDatabase.execSQL("DROP TABLE performers");
+        sqLiteDatabase.execSQL("DROP TABLE persons");
+        sqLiteDatabase.execSQL("DROP TABLE groups");
+        sqLiteDatabase.execSQL("DROP TABLE albums");
+        sqLiteDatabase.execSQL("DROP TABLE rolas");
+        sqLiteDatabase.execSQL("DROP TABLE in_group");
+        onCreate(sqLiteDatabase);
+    }
+}
