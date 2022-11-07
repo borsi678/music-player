@@ -12,17 +12,18 @@ public class MiniReproductorMusica {
     private static ReproductorMusica reproductor;
     private static MineroMusica minero;
     private static Scanner scanner=new Scanner(System.in);
-    private static LinkedList<CancionConPath> canciones;
+    private static LinkedList<CancionConPath> canciones=new LinkedList<CancionConPath>();
 
     public static void main(String[] args){
         System.out.println("Iniciando reproductor...");
-        reproductor=new ReproductorMusica();
+        //reproductor=new ReproductorMusica();
         minero=new MineroMusica();
 
         System.out.print("Dame un directorio:");
-        String path= scanner.nextLine();
+        //String path= scanner.nextLine();
 
-        canciones=minero.minaDirectorio(path);
+        canciones = minero.minaDirectorio("/media/angel/Disco1/Música/Doom Slayer - DOOM Eternal Original Game Soundtrack (OST 2020)/");
+        System.out.println(canciones.size());
         while(true) {
             menuOperaciones();
             realizaOperacion(scanner.nextInt());

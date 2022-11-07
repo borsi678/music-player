@@ -20,7 +20,7 @@ public class MineroMusicaTest extends TestCase {
     public void testMinaDirectorio() {
         //creaArchivos();
         MineroMusica minero = new MineroMusica();
-        LinkedList<CancionConPath> canciones= minero.minaDirectorio("musica");
+        LinkedList<CancionConPath> canciones= minero.minaDirectorio("/media/angel/Disco1/Música/Doom Slayer - DOOM Eternal Original Game Soundtrack (OST 2020)/");
         String path;
         Mp3File archivoMp3;
         int i=0;

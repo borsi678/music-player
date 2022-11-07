@@ -21,7 +21,7 @@ public class MineroMusica {
     public LinkedList<CancionConPath> minaDirectorio(String ruta){
         File carpeta = new File(ruta);
         if(carpeta.isDirectory())
-            this.minaDirectorio(carpeta,canciones);
+            canciones=this.minaDirectorio(carpeta,canciones);
         else {
             try {
                 canciones.add(new CancionConPath(convierteArchivo(carpeta), ruta));
@@ -31,7 +31,7 @@ public class MineroMusica {
         return canciones;
     }
 
-    private void minaDirectorio(File carpeta, LinkedList<CancionConPath> canciones) {
+    private LinkedList<CancionConPath> minaDirectorio(File carpeta, LinkedList<CancionConPath> canciones) {
         String[] listaArchivos = carpeta.list();
         for (String cancion : listaArchivos) {
             File archivoCancion = new File(carpeta.getAbsolutePath()+"/"+cancion);
@@ -46,10 +46,9 @@ public class MineroMusica {
                 } catch (InvalidDataException | UnsupportedTagException | IOException ex){
                     continue;
                 }
-            }else {
-                throw new ExcepcionFormatoInvalido();
             }
         }
+        return canciones;
     }
 
     public Mp3File convierteArchivo(File archivo) throws InvalidDataException, UnsupportedTagException, IOException {
@@ -114,7 +113,7 @@ public class MineroMusica {
     }
 
     public boolean esFormatoValido(String nombreCancion){
-        String[] formatos = {".wav", ".aiff", ".pcm", ".flac", ".alac", ".wma", ".mp3", ".ogg", ".aac", ".wma"};
+        String[] formatos = {".wav", ".aiff", ".pcm", ".flac", ".alac", ".wma", ".mp3", ".ogg", ".aac", ".wma", ".m4a"};
         for (String formato : formatos){
             if(nombreCancion.toLowerCase().endsWith(formato))
                 return true;
