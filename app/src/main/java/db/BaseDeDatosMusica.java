@@ -3,10 +3,21 @@ package db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+import android.os.Build;
 import androidx.annotation.Nullable;
 
 public class BaseDeDatosMusica extends SQLiteOpenHelper {
+
+    interface Tablas{
+        String TYPES="types";
+        String PERFORMERS="performers";
+        String PERSONS="persons";
+        String GROUPS="groups";
+        String ALBUMS="albums";
+        String ROLAS="rolas";
+        String IN_GROUP="in_group";
+
+    }
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NOMBRE = "musica.db";
@@ -74,14 +85,25 @@ public class BaseDeDatosMusica extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onOpen(SQLiteDatabase sqLiteDatabase){
+        super.onOpen(sqLiteDatabase);
+        if (!sqLiteDatabase.isReadOnly()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                sqLiteDatabase.setForeignKeyConstraintsEnabled(true);
+            } else {
+                sqLiteDatabase.execSQL("PRAGMA foreign_keys=ON");
+            }
+        }
+    }
+    @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE types");
-        sqLiteDatabase.execSQL("DROP TABLE performers");
-        sqLiteDatabase.execSQL("DROP TABLE persons");
-        sqLiteDatabase.execSQL("DROP TABLE groups");
-        sqLiteDatabase.execSQL("DROP TABLE albums");
-        sqLiteDatabase.execSQL("DROP TABLE rolas");
-        sqLiteDatabase.execSQL("DROP TABLE in_group");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+Tablas.TYPES);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Tablas.PERFORMERS);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Tablas.PERSONS);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Tablas.GROUPS);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Tablas.ALBUMS);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Tablas.ROLAS);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Tablas.IN_GROUP);
         onCreate(sqLiteDatabase);
     }
 }
