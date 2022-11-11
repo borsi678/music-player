@@ -22,7 +22,7 @@ public class MiniReproductorMusica {
         System.out.print("Dame un directorio:");
         //String path= scanner.nextLine();
 
-        canciones = minero.minaDirectorio("/media/angel/Disco1/Música/Doom Slayer - DOOM Eternal Original Game Soundtrack (OST 2020)/");
+        canciones = minero.minaDirectorio("/media/angel/Disco1/Música/Music/");
         System.out.println(canciones.size());
         while(true) {
             menuOperaciones();

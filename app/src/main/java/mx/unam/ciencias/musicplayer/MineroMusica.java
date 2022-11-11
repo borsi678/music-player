@@ -58,7 +58,7 @@ public class MineroMusica {
     }
 
     public Mp3File completaDatos(Mp3File cancion){
-        if(!cancion.hasId3v2Tag()){
+        if(!cancion.hasId3v2Tag() || !cancion.hasId3v1Tag()){
             cancion=setDatosPredeterminados(cancion);
         }
         cancion = verificaDatos(cancion);
@@ -67,13 +67,13 @@ public class MineroMusica {
     public Mp3File verificaDatos(Mp3File cancion){
         ID3v2 id3v24Tag= cancion.getId3v2Tag();
         String dato=id3v24Tag.getArtist();
-        if(dato==null || dato.equals(""))
+        if(dato==null)
             id3v24Tag.setArtist("Unknown");
         dato=id3v24Tag.getComposer();
         if(dato==null || dato.equals(""))
             id3v24Tag.setComposer("Unknown");
         dato=id3v24Tag.getTitle();
-        if(dato==null || dato.equals(""))
+        if(dato==null )
             id3v24Tag.setTitle("Unknown");
         dato=id3v24Tag.getAlbum();
         if(dato==null || dato.equals(""))
