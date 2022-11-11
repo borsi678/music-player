@@ -16,7 +16,7 @@ public class MiniReproductorMusica {
 
     public static void main(String[] args){
         System.out.println("Iniciando reproductor...");
-        reproductor=new ReproductorMusica();
+        //reproductor=new ReproductorMusica();
         minero=new MineroMusica();
 
         System.out.print("Dame un directorio:");

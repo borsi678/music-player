@@ -46,8 +46,6 @@ public class MineroMusica {
                 } catch (InvalidDataException | UnsupportedTagException | IOException ex){
                     continue;
                 }
-            }else {
-                throw new ExcepcionFormatoInvalido();
             }
         }
     }

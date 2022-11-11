@@ -4,6 +4,7 @@ public class Performers {
     private int idPerformer;
     private int idType;
     private String name;
+    private static Integer key = new Integer(0);
 
     public Performers(int idPerformer, int idType, String name) {
         this.idPerformer = idPerformer;
@@ -33,5 +34,10 @@ public class Performers {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int generaIdPerformer(){
+        key++;
+        return key.intValue();
     }
 }

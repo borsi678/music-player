@@ -6,6 +6,7 @@ public class Persons {
     private String realName;
     private String birthDate;
     private String deathDate;
+    private static Integer key=new Integer(0);
 
     public Persons(int idPerson, String stageName, String realName, String birthDate, String deathDate) {
         this.idPerson = idPerson;
@@ -53,5 +54,10 @@ public class Persons {
 
     public void setDeathDate(String deathDate) {
         this.deathDate = deathDate;
+    }
+
+    public String generaIdPerson(){
+        key++;
+        return key.toString();
     }
 }
