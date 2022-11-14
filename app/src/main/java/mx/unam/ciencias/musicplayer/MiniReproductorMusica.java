@@ -16,11 +16,9 @@ public class MiniReproductorMusica {
 
     public static void main(String[] args){
         System.out.println("Iniciando reproductor...");
-        //reproductor=new ReproductorMusica();
         minero=new MineroMusica();
 
         System.out.print("Dame un directorio:");
-        //String path= scanner.nextLine();
 
         canciones = minero.minaDirectorio("/media/angel/Disco1/Música/Music/");
         System.out.println(canciones.size());
